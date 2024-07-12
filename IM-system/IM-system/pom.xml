@@ -7,17 +7,21 @@
     <groupId>com.lal.im</groupId>
     <artifactId>IM-system</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>im-tcp</module>
-    </modules>
+
     <packaging>pom</packaging>
     <name>IM-system</name>
+    
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.2.RELEASE</version>
         <relativePath/>
     </parent>
+
+
+    <modules>
+        <module>im-tcp</module>
+    </modules>
 
     <properties>
         <java.version>1.8</java.version>
