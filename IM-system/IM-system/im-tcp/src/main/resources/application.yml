@@ -1,5 +1,37 @@
 
+server:
+  port: 8001
+
+tim:
+  tcpPort: 8000
+  tcpEnabled: true
+  tcpServerName: timTcpServer
+  webSocketPort: 18000
+  webSocketEnabled: true
+  webSocketServerName: timWebSocketServer
+  brokerId: 1
+
+
 
 spring:
-  main:
-    web-application-type: none
+  application:
+    name: timTcpApplication
+  profiles:
+    active: '@profiles.active@'
+
+
+--- # nacos
+spring:
+  cloud:
+    nacos:
+      # nacos
+      server-addr: '@nacos.server@'
+      discovery:
+        group: '@nacos.discovery.group@'
+        namespace: ${spring.profiles.active}
+      config:
+        group: '@nacos.config.group@'
+        namespace: ${spring.profiles.active}
+  config:
+    import:
+      - optional:nacos:${spring.application.name}.yml

@@ -1,5 +1,7 @@
 package com.lal.im.tcp.server;
 
+import com.lal.im.common.codec.MessageDecoder;
+import com.lal.im.common.codec.MessageEncoder;
 import com.lal.im.tcp.handler.NettyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -10,20 +12,34 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+
+@Slf4j
 @Component
+@ConditionalOnProperty(prefix = "tim",name = "tcpEnabled",havingValue = "true")
 public class TimServer {
 
-    public TimServer() {
-        init();
-    }
+    @Value("${tim.tcpPort}")
+    Integer tcpPort;
 
+    ServerBootstrap serverBootstrap;
+
+    NioEventLoopGroup bossGroup;
+
+    NioEventLoopGroup workerGroup;
+
+    @PostConstruct
     public void init() {
 
-        NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
+        bossGroup = new NioEventLoopGroup(1);
+        workerGroup = new NioEventLoopGroup();
+        serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(bossGroup, workerGroup)
             .channel(NioServerSocketChannel.class)
             .option(ChannelOption.SO_BACKLOG,10240) //server connection backlog size
@@ -34,15 +50,15 @@ public class TimServer {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline pipeline = ch.pipeline();
-                    pipeline.addLast(new StringEncoder());
-                    pipeline.addLast(new StringDecoder());
+                    pipeline.addLast(new MessageDecoder());
+                    pipeline.addLast(new MessageEncoder());
 //                        pipeline.addLast(new IdleStateHandler(0,0,1));
                     pipeline.addLast(new NettyServerHandler());
                 }
             });
         try {
-            serverBootstrap.bind(8000).sync();
-            System.out.println("tcp server is running on port 8000...");
+            serverBootstrap.bind(tcpPort).sync();
+            log.warn("\r\ntcp server is running on port {}...\r\n",tcpPort);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

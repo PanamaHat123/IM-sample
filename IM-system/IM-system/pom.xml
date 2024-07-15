@@ -14,19 +14,21 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.2.RELEASE</version>
+        <version>2.6.14</version>
         <relativePath/>
     </parent>
 
 
     <modules>
         <module>im-tcp</module>
+        <module>im-common</module>
     </modules>
 
     <properties>
+        <spring-boot.version>2.6.14</spring-boot.version>
         <java.version>1.8</java.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
-        <hutool.version>5.0.6</hutool.version>
+        <hutool.version>5.7.13</hutool.version>
         <redisson.version>3.15.6</redisson.version>
         <snakeyaml.version>1.27</snakeyaml.version>
         <protostuff-api>1.0.10</protostuff-api>
@@ -38,6 +40,8 @@
         <springboot.version>2.3.2.RELEASE</springboot.version>
         <netty.version>4.1.35.Final</netty.version>
         <feign.version>8.18.0</feign.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
+        <spring-context-support>1.0.11</spring-context-support>
     </properties>
 
     <dependencies>
@@ -67,10 +71,23 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2021.0.6.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.spring</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring-context-support}</version>
+            </dependency>
             <!-- protostuff begin -->
             <dependency>
                 <groupId>com.dyuproject.protostuff</groupId>
@@ -200,16 +217,60 @@
     </dependencyManagement>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>${project.artifactId}</warName>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <delimiters>@</delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+                <logging.level>debug</logging.level>
+                <endpoints.include>health, info, logfile, heapdump, metrics</endpoints.include>
+                <nacos.server>10.209.248.224:8848</nacos.server>
+                <nacos.discovery.group>DEFAULT_GROUP</nacos.discovery.group>
+                <nacos.config.group>DEFAULT_GROUP</nacos.config.group>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
