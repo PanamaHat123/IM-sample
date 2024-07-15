@@ -719,20 +719,28 @@
 </script>
 <form onsubmit="return false">
 
+    <span class="t_label">formUserId: </span>
     <textarea placeholder="userId" id="userId" name="userId" style="width: 250px;height: 30px"></textarea>
     <br/>
+    <span class="t_label">toUserId: </span>
     <textarea placeholder="toUserId or toGroupId" name="toUser" style="width: 250px;height: 30px"></textarea>
     <br/>
+    <span class="t_label">appId: </span>
     <textarea placeholder="appId" id="appId" name="appId" style="width: 250px;height: 30px"></textarea>
     <br/>
+    <span class="t_label">clientType: </span>
     <textarea placeholder="clientType" id="clientType" name="clientType" style="width: 250px;height: 30px"></textarea>
     <br/>
+    <span class="t_label">imei: </span>
     <textarea placeholder="imei" id="imei" name="imei" style="width: 250px;height: 30px"></textarea>
     <input type="button" value="login" onclick="login(this.form.userId.value,this.form.toUser.value,this.form.clientType.value
     ,this.form.imei.value,this.form.appId.value);">
     <br/>
+    <span class="t_label">command: </span>
     <textarea placeholder="command" name="command" style="width: 250px;height: 30px"></textarea>
+    <span> ----1103(p2p)  2104(group) if empty default 1103</span>
     <br/>
+    <span class="t_label">messageBody: </span>
     <textarea placeholder="message content" name="message" style="width: 250px;height: 30px"></textarea>
     <input type="button" value="send"
            onclick="sendMsg(this.form.userId.value,this.form.toUser.value,this.form.command.value,this.form.message.value
@@ -744,5 +752,13 @@
 
     <input type="button" onclick="javascript:document.getElementById('responseText').value=''" value="clear ">
 </form>
+<style>
+    .t_label{
+        width:110px;
+        display: inline-block;
+        vertical-align: top;
+        height: 30px;
+    }
+</style>
 </body>
 </html>

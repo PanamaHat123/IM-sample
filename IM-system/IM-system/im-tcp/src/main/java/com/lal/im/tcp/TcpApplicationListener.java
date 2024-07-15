@@ -56,7 +56,6 @@ public class TcpApplicationListener implements ApplicationListener<ContextRefres
             if(webSocketEnabled){
                 namingService.registerInstance(webSocketServerName,hostAddress ,webSocketPort);
             }
-
         } catch (NacosException e) {
             throw new RuntimeException(e);
         } catch (UnknownHostException e) {

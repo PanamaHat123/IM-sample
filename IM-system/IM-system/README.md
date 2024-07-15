@@ -1,4 +1,4 @@
-# IM-sample
+# IM-system
 
 Directory structure.
 
