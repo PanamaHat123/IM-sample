@@ -1,23 +1,18 @@
 
+
 server:
-  port: 8001
-
-tim:
-  tcpPort: 8000
-  tcpEnabled: true
-  tcpServerName: timTcpServer
-  webSocketPort: 18000
-  webSocketEnabled: true
-  webSocketServerName: timWebSocketServer
-  brokerId: 1
-
-
+  port: 8080
 
 spring:
   application:
-    name: timTcpApplication
+    name: timServiceApplication
   profiles:
     active: '@profiles.active@'
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/im-core?serverTimezone=UTC&useSSL=false&characterEncoding=UTF8
+    username: root
+    password: root
 
   redis:
     host: 127.0.0.1
@@ -53,6 +48,23 @@ spring:
       channel:
         size: 36
         checkout-timeout: 0
+
+# logger
+logging:
+  config: classpath:logback-spring.xml
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*.xml
+  global-config:
+    db-config:
+      update-strategy: NOT_EMPTY
+
+
+
+
+
 
 
 --- # nacos

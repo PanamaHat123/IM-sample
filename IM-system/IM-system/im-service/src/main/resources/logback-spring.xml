@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Log levels range from low to high as TRACE < DEBUG < INFO < WARN < ERROR < FATAL. If set to WARN, information below WARN level will not be output. -->
+<!-- scan: When this attribute is set to true, the configuration file will be reloaded if it changes. The default value is true. -->
+<!-- scanPeriod: Sets the time interval to check for changes in the configuration file. If no time unit is given, the default unit is milliseconds. This attribute takes effect when scan is true. The default interval is 1 minute. -->
+<!-- debug: When this attribute is set to true, logback internal log information will be printed, allowing real-time viewing of logback's running state. The default value is false. -->
+
+<configuration scan="true" scanPeriod="10 seconds" >
+
+    <include resource="org/springframework/boot/logging/logback/defualts.xml"/>
+
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <springProperty scope="context" name="springAppEnv" source="spring.profiles.active"/>
+    <!--     <springProperty scope="context" name="logFile" source="logging.file"/> -->
+
+    <property name="logFile" value="logs/mylog.log"/>
+    <!--The output location of logs in the project-->
+    <property name="LOG_FILE" value="${logFile}"/>
+    <!-- Color log dependency rendering class -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!--Console log output style.-->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+
+    <!--Console Appender-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+
+    <!--Hide the logs output after service discovery-->
+    <logger name="com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver" level="WARN"/>
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="WARN"/>
+
+
+    <springProfile name="test,dev">
+        <!--文件-->
+        <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Prudent>true</Prudent>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>
+                    ${logFile}.%d{yyyy-MM-dd}.log
+                </FileNamePattern>
+            </rollingPolicy>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>
+                    %d{yyyy-MM-dd HH:mm:ss} -%msg%n
+                </Pattern>
+            </layout>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="console"/>
+            <appender-ref ref="fileAppender"/>
+        </root>
+    </springProfile>
+    <springProfile name="prod">
+        <!--文件-->
+        <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <Prudent>true</Prudent>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>
+                    ${logFile}.%d{yyyy-MM-dd}.log
+                </FileNamePattern>
+            </rollingPolicy>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>
+                    %d{yyyy-MM-dd HH:mm:ss} -%msg%n
+                </Pattern>
+            </layout>
+        </appender>
+        <root level="WARN">
+            <appender-ref ref="console"/>
+            <appender-ref ref="fileAppender"/>
+        </root>
+    </springProfile>
+
+</configuration>
