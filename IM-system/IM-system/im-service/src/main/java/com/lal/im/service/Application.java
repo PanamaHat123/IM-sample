@@ -2,6 +2,7 @@ package com.lal.im.service;
 
 
 import com.rabbitmq.client.Channel;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
@@ -16,7 +17,10 @@ import org.springframework.messaging.handler.annotation.Payload;
 
 import java.util.Map;
 
-@SpringBootApplication
+
+@SpringBootApplication(scanBasePackages = {"com.lal.im.service",
+        "com.lal.im.common"})
+@MapperScan("com.lal.im.service.*.mapper")
 public class Application {
 
     /**
@@ -34,7 +38,7 @@ public class Application {
         System.out.println("receive message:"+message.toString());
     }
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(Application.class, args);
     }
 }

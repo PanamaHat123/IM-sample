@@ -29,6 +29,12 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+        </dependency>
+
         <!-- spring boot web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

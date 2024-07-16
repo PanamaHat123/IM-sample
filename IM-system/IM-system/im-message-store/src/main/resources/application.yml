@@ -1,0 +1,82 @@
+
+
+server:
+  port: 8090
+
+spring:
+  application:
+    name: timMessageStore
+  profiles:
+    active: '@profiles.active@'
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/im-core?serverTimezone=UTC&useSSL=false&characterEncoding=UTF8
+    username: root
+    password: root
+  main:
+    allow-circular-references: true
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 100
+        max-wait: 1000
+        min-idle: 10
+    password:
+
+  rabbitmq:
+    host: 192.168.64.144
+    port: 5672
+    addresses: 192.168.64.144
+    username: root
+    password: root
+    virtual-host: my_vhost
+    listener:
+      simple:
+        concurrency: 5
+        max-concurrency: 10
+        acknowledge-mode: MANUAL
+        prefetch: 1
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+    cache:
+      connection:
+        mode: channel
+      channel:
+        size: 36
+        checkout-timeout: 0
+
+# logger
+logging:
+  config: classpath:logback-spring.xml
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*.xml
+  global-config:
+    db-config:
+      update-strategy: NOT_EMPTY
+
+
+
+--- # nacos
+spring:
+  cloud:
+    nacos:
+      # nacos
+      server-addr: '@nacos.server@'
+      discovery:
+        group: '@nacos.discovery.group@'
+        namespace: ${spring.profiles.active}
+      config:
+        group: '@nacos.config.group@'
+        namespace: ${spring.profiles.active}
+  config:
+    import:
+      - optional:nacos:${spring.application.name}.yml

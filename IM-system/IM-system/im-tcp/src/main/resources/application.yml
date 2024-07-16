@@ -18,6 +18,8 @@ spring:
     name: timTcpApplication
   profiles:
     active: '@profiles.active@'
+  main:
+    allow-circular-references: true
 
   redis:
     host: 127.0.0.1

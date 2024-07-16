@@ -30,24 +30,9 @@ public class TcpApplication {
         TcpApplication.port = port;
     }
 
-    /**
-     * test rabbitmq
-     */
-    @RabbitListener(
-            bindings = @QueueBinding(
-                    value = @Queue(value = "test",durable = "true"),
-                    exchange = @Exchange(value ="test",durable = "true")
-            ),concurrency = "1"
-    )
-    public void onChatMessage(@Payload Message message,
-                              @Headers Map<String ,Object> headers,
-                              Channel channel ) throws Exception {
-        System.out.println("receive message:"+message.toString());
-    }
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(TcpApplication.class, args);
         log.info("spring boot server is running on port {}...",port);
-
     }
 }
