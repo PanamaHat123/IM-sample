@@ -2,30 +2,33 @@ package com.lal.im.tcp.redis;
 
 import com.lal.im.common.codec.config.BootstrapConfig;
 import com.lal.im.tcp.reciver.UserLoginMessageListener;
+import lombok.Data;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Data
+@Component
 public class RedisManager {
 
-    private static RedissonClient redissonClient;
+    @Autowired
+    RedissonClient redissonClient;
 
-    private static Integer loginModel;
+    @Autowired
+    BootstrapConfig config;
 
-    public static void init(BootstrapConfig config){
+    private Integer loginModel;
 
-        loginModel = config.getLim().getLoginModel();
-
-        SingleClientStrategy singleClientStrategy = new SingleClientStrategy();
-
-        redissonClient = singleClientStrategy.getRedissonClient(config.getLim().getRedis());
-
-
-        UserLoginMessageListener userLoginMessageListener = new UserLoginMessageListener(loginModel);
+    @PostConstruct
+    public void init(){
+        loginModel = config.getLoginModel();
+        UserLoginMessageListener userLoginMessageListener = new UserLoginMessageListener(loginModel,redissonClient);
         userLoginMessageListener.listenerUserLogin();
-
     }
 
-    public static RedissonClient getRedissonClient(){
-        return redissonClient;
-    }
+
 
 }

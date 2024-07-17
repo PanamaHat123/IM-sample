@@ -28,6 +28,12 @@ public class Constants {
 
     public static final String ImCoreZkRootWeb = "/web";
 
+    public static final String NacosTcpServerName = "timTcpServer";
+
+    public static final String NacosWsServerName = "timWebSocketServer";
+
+
+
 
     public static class RedisConstants{
 

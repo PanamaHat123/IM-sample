@@ -18,8 +18,8 @@ import org.springframework.messaging.handler.annotation.Payload;
 import java.util.Map;
 
 
-@SpringBootApplication(scanBasePackages = {"com.lal.im.service",
-        "com.lal.im.common"})
+@SpringBootApplication(scanBasePackages = { "com.lal.im.common","com.lal.im.service"
+       })
 @MapperScan("com.lal.im.service.*.mapper")
 public class Application {
 

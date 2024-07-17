@@ -21,13 +21,13 @@ import java.util.Map;
 @Component
 public class HttpRequestUtils {
 
-    @Autowired
+    @Autowired(required = false)
     private CloseableHttpClient httpClient;
 
-    @Autowired
+    @Autowired(required = false)
     private RequestConfig requestConfig;
 
-    @Autowired
+    @Autowired(required = false)
     GlobalHttpClientConfig httpClientConfig;
 
     public String doGet(String url, Map<String, Object> params, String charset) throws Exception {

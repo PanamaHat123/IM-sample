@@ -6,6 +6,10 @@ import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
+import com.lal.im.common.codec.config.BootstrapConfig;
+import com.lal.im.common.constant.Constants;
+import com.lal.im.common.utils.register.IRegisterCenter;
+import com.lal.im.tcp.reciver.MessageReciver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEvent;
@@ -20,16 +24,9 @@ import java.net.UnknownHostException;
 @Service
 public class TcpApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
-    @Autowired
-    private NacosServiceManager nacosServiceManager;
 
-
-
-    @Value("${tim.tcpServerName}")
-    String tcpServerName;
-
-    @Value("${tim.webSocketServerName}")
-    String webSocketServerName;
+    @Autowired(required = false)
+    IRegisterCenter registerCenter;
 
     @Value("${tim.tcpPort}")
     Integer tcpPort;
@@ -43,21 +40,21 @@ public class TcpApplicationListener implements ApplicationListener<ContextRefres
     @Value("${tim.webSocketEnabled}")
     Boolean webSocketEnabled;
 
-
+    @Autowired
+    BootstrapConfig bootstrapConfig;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        NamingService namingService = nacosServiceManager.getNamingService();
+        String hostAddress = null;
         try {
-            String hostAddress = InetAddress.getLocalHost().getHostAddress();
-            if(tcpEnabled){
-                namingService.registerInstance(tcpServerName,hostAddress ,tcpPort);
+            hostAddress = InetAddress.getLocalHost().getHostAddress();
+            if (tcpEnabled) {
+                registerCenter.register(Constants.NacosTcpServerName, hostAddress, tcpPort);
             }
-            if(webSocketEnabled){
-                namingService.registerInstance(webSocketServerName,hostAddress ,webSocketPort);
+            if (webSocketEnabled) {
+                registerCenter.register(Constants.NacosWsServerName, hostAddress, tcpPort);
             }
-        } catch (NacosException e) {
-            throw new RuntimeException(e);
+            MessageReciver.init(bootstrapConfig.getBrokerId()+"");
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }

@@ -1,15 +1,16 @@
 package com.lal.im.service.user.controller;
 
 
+import com.lal.im.common.constant.Constants;
 import com.lal.im.common.model.ClientType;
 import com.lal.im.common.model.ResponseVO;
 import com.lal.im.common.route.RouteHandle;
 import com.lal.im.common.route.RouteInfo;
 import com.lal.im.common.utils.RouteInfoParseUtil;
+import com.lal.im.common.utils.register.IRegisterCenter;
 import com.lal.im.service.user.model.req.*;
 import com.lal.im.service.user.service.ImUserService;
 import com.lal.im.service.user.service.ImUserStatusService;
-import com.lal.im.service.utils.ZKit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +30,9 @@ public class ImUserController {
     @Autowired
     RouteHandle routeHandle;
 
+
     @Autowired
-    ZKit zKit;
+    IRegisterCenter registerCenter;
 
     @Autowired
     ImUserStatusService imUserStatusService;
@@ -65,13 +67,13 @@ public class ImUserController {
 
             List<String> allNode = new ArrayList<>();
             if(req.getClientType() == ClientType.WEB.getCode()){
-                allNode = zKit.getAllWebNode();
+                allNode = registerCenter.getAllServerByName(Constants.NacosWsServerName);
             }else {
-                allNode = zKit.getAllTcpNode();
+                allNode = registerCenter.getAllServerByName(Constants.NacosTcpServerName);
             }
+            System.out.println("nacos ipports : "+allNode);
             //ip:port
             String s = routeHandle.routeServer(allNode, req.getUserId());
-
             RouteInfo parse = RouteInfoParseUtil.parse(s);
             return ResponseVO.successResponse(parse);
         }

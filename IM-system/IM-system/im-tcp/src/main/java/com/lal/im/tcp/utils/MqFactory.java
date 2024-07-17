@@ -3,13 +3,18 @@ package com.lal.im.tcp.utils;
 
 import com.lal.im.common.codec.config.BootstrapConfig;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import org.springframework.amqp.rabbit.connection.Connection;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeoutException;
 
+@Component
 public class MqFactory {
 
     private static ConnectionFactory factory = null;
@@ -18,29 +23,28 @@ public class MqFactory {
 
     private static ConcurrentHashMap<String,Channel> channelMap = new ConcurrentHashMap<>();
 
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
+    @PostConstruct
+    public void init(){
+         factory = rabbitTemplate.getConnectionFactory();
+    }
+
     private static Connection getConnection() throws IOException, TimeoutException {
-        Connection connection = factory.newConnection();
+        Connection connection = factory.createConnection();
         return connection;
     }
 
     public static Channel getChannel(String channelName) throws IOException, TimeoutException {
         Channel channel = channelMap.get(channelName);
         if(channel == null){
-            channel = getConnection().createChannel();
+            channel = getConnection().createChannel(false);
             channelMap.put(channelName,channel);
         }
         return channel;
     }
 
-    public static void init(BootstrapConfig.Rabbitmq rabbitmq){
-        if(factory == null){
-            factory = new ConnectionFactory();
-            factory.setHost(rabbitmq.getHost());
-            factory.setPort(rabbitmq.getPort());
-            factory.setUsername(rabbitmq.getUserName());
-            factory.setPassword(rabbitmq.getPassword());
-            factory.setVirtualHost(rabbitmq.getVirtualHost());
-        }
-    }
 
 }

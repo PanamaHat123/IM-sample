@@ -1,5 +1,6 @@
 package com.lal.im.tcp.utils;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.lal.im.common.codec.pack.user.UserStatusChangeNotifyPack;
 import com.lal.im.common.codec.proto.MessageHeader;
@@ -63,13 +64,14 @@ public class SessionSocketHolder {
     }
 
     public static void removeUserSession(NioSocketChannel nioSocketChannel){
+        RedisManager redisManager = SpringUtil.getBean(RedisManager.class);
         String userId = (String) nioSocketChannel.attr(AttributeKey.valueOf(Constants.UserId)).get();
         Integer appId = (Integer) nioSocketChannel.attr(AttributeKey.valueOf(Constants.AppId)).get();
         Integer clientType = (Integer) nioSocketChannel.attr(AttributeKey.valueOf(Constants.ClientType)).get();
         String imei = (String) nioSocketChannel.attr(AttributeKey.valueOf(Constants.Imei)).get();
 
         SessionSocketHolder.remove(appId,userId,clientType,imei);
-        RedissonClient redissonClient = RedisManager.getRedissonClient();
+        RedissonClient redissonClient = redisManager.getRedissonClient();
         RMap<Object, Object> map = redissonClient.getMap(appId +
                 Constants.RedisConstants.UserSessionConstants + userId);
         map.remove(clientType+":"+imei);
@@ -90,6 +92,7 @@ public class SessionSocketHolder {
     }
 
     public static void offlineUserSession(NioSocketChannel nioSocketChannel){
+        RedisManager redisManager = SpringUtil.getBean(RedisManager.class);
         String userId = (String) nioSocketChannel.attr(AttributeKey.valueOf(Constants.UserId)).get();
         Integer appId = (Integer) nioSocketChannel.attr(AttributeKey.valueOf(Constants.AppId)).get();
         Integer clientType = (Integer) nioSocketChannel.attr(AttributeKey.valueOf(Constants.ClientType)).get();
@@ -97,7 +100,7 @@ public class SessionSocketHolder {
 
 
         SessionSocketHolder.remove(appId,userId,clientType,imei);
-        RedissonClient redissonClient = RedisManager.getRedissonClient();
+        RedissonClient redissonClient = redisManager.getRedissonClient();
 
         RMap<String, String> map = redissonClient.getMap(appId +
                 Constants.RedisConstants.UserSessionConstants + userId);

@@ -2,6 +2,8 @@ package com.lal.im.tcp.server;
 
 import com.lal.im.common.codec.WebSocketMessageDecoder;
 import com.lal.im.common.codec.WebSocketMessageEncoder;
+import com.lal.im.common.codec.config.BootstrapConfig;
+import com.lal.im.tcp.handler.HeartBeatHandler;
 import com.lal.im.tcp.handler.NettyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -18,6 +20,7 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -38,6 +41,9 @@ public class TimWebSocketServer {
     NioEventLoopGroup bossGroup;
 
     NioEventLoopGroup workerGroup;
+
+    @Autowired
+    BootstrapConfig config;
 
     @PostConstruct
     public void init() {
@@ -68,7 +74,8 @@ public class TimWebSocketServer {
                         pipeline.addLast(new WebSocketMessageDecoder());
                         pipeline.addLast(new WebSocketMessageEncoder());
                         pipeline.addLast(new IdleStateHandler(0,0,10));
-                        pipeline.addLast(new NettyServerHandler());
+                        // pipeline.addLast(new HeartBeatHandler(config.getHeartBeatTime()));
+                        pipeline.addLast(new NettyServerHandler(1000,"http://127.0.0.1:8080/v1"));
                     }
                 });
         try {

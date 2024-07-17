@@ -1,20 +1,28 @@
-package com.lal.im.tcp.redis;
+package com.lal.im.tcp.config;
 
-import com.lal.im.common.codec.config.BootstrapConfig;
+
+import com.lal.im.tcp.config.properties.RedissonProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.codec.StringCodec;
 import org.redisson.config.Config;
 import org.redisson.config.SingleServerConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class BeanConfig {
+
+    @Autowired
+    RedissonProperties redisConfig;
 
 
-
-public class SingleClientStrategy {
-
-    public RedissonClient getRedissonClient(BootstrapConfig.RedisConfig redisConfig) {
+    @Bean
+    RedissonClient redissonClient() {
         Config config = new Config();
-        String node = redisConfig.getSingle().getAddress();
+        String node = redisConfig.getAddress();
         node = node.startsWith("redis://") ? node : "redis://" + node;
         SingleServerConfig serverConfig = config.useSingleServer()
                 .setAddress(node)
@@ -28,8 +36,7 @@ public class SingleClientStrategy {
         }
         StringCodec stringCodec = new StringCodec();
         config.setCodec(stringCodec);
-        return Redisson.create(config);
+        RedissonClient redissonClient = Redisson.create(config);
+        return redissonClient;
     }
-
-
 }

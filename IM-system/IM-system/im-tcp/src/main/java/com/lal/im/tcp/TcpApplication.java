@@ -18,7 +18,9 @@ import org.springframework.messaging.handler.annotation.Payload;
 import java.util.Map;
 
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "com.lal.im.common", "com.lal.im.tcp"
+})
 public class TcpApplication {
 
 

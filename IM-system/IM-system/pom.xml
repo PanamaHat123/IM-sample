@@ -44,9 +44,12 @@
         <feign.version>8.18.0</feign.version>
         <snakeyaml.version>1.33</snakeyaml.version>
         <spring-context-support>1.0.11</spring-context-support>
+        <redisson.version>3.17.1</redisson.version>
     </properties>
 
     <dependencies>
+
+
         <!-- logging framework -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -78,6 +81,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>

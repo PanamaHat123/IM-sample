@@ -8,7 +8,6 @@ import com.lal.im.common.enums.DeviceMultiLoginEnum;
 import com.lal.im.common.enums.command.SystemCommand;
 import com.lal.im.common.model.ClientType;
 import com.lal.im.common.model.UserClientDto;
-import com.lal.im.tcp.redis.RedisManager;
 import com.lal.im.tcp.utils.SessionSocketHolder;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
@@ -33,12 +32,15 @@ public class UserLoginMessageListener {
 
     private Integer loginModel;
 
-    public UserLoginMessageListener(Integer loginModel) {
+    RedissonClient redissonClient;
+
+    public UserLoginMessageListener(Integer loginModel,RedissonClient redissonClient) {
         this.loginModel = loginModel;
+        this.redissonClient = redissonClient;
     }
 
     public void listenerUserLogin(){
-        RedissonClient redissonClient = RedisManager.getRedissonClient();
+
         RTopic topic = redissonClient.getTopic(Constants.RedisConstants.UserLoginChannel);
 
         topic.addListener(String.class, new MessageListener<String>() {
