@@ -27,7 +27,7 @@
     </modules>
 
     <properties>
-        <spring-boot.version>2.6.14</spring-boot.version>
+        <springboot.version>2.6.14</springboot.version>
         <java.version>1.8</java.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <hutool.version>5.7.13</hutool.version>
@@ -39,7 +39,7 @@
         <rabbit.client.version>5.19.0</rabbit.client.version>
         <apache.commons.version>3.12.0</apache.commons.version>
         <fastjson.version>1.2.51</fastjson.version>
-        <springboot.version>2.3.2.RELEASE</springboot.version>
+<!--        <springboot.version>2.3.2.RELEASE</springboot.version>-->
         <netty.version>4.1.81.Final</netty.version>
         <feign.version>8.18.0</feign.version>
         <snakeyaml.version>1.33</snakeyaml.version>
@@ -232,7 +232,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${springboot.version}</version>
                 <configuration>
                     <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
                 </configuration>

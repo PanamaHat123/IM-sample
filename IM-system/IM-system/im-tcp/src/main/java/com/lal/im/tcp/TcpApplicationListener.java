@@ -52,7 +52,7 @@ public class TcpApplicationListener implements ApplicationListener<ContextRefres
                 registerCenter.register(Constants.NacosTcpServerName, hostAddress, tcpPort);
             }
             if (webSocketEnabled) {
-                registerCenter.register(Constants.NacosWsServerName, hostAddress, tcpPort);
+                registerCenter.register(Constants.NacosWsServerName, hostAddress, webSocketPort);
             }
             MessageReciver.init(bootstrapConfig.getBrokerId()+"");
         } catch (UnknownHostException e) {

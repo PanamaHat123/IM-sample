@@ -55,6 +55,7 @@ spring:
 logging:
   config: classpath:logback-spring.xml
 
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -74,6 +75,7 @@ spring:
       discovery:
         group: '@nacos.discovery.group@'
         namespace: ${spring.profiles.active}
+        registerEnabled: true
       config:
         group: '@nacos.config.group@'
         namespace: ${spring.profiles.active}
