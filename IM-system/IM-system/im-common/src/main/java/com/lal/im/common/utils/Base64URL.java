@@ -5,11 +5,7 @@ import sun.misc.BASE64Encoder;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 public class Base64URL {
     public static byte[] base64EncodeUrl(byte[] input) {
         byte[] base64 = new BASE64Encoder().encode(input).getBytes();

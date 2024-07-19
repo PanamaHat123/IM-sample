@@ -2,11 +2,7 @@ package com.lal.im.common.codec.pack.message;
 
 import lombok.Data;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Data
 public class ChatMessageAck {
 

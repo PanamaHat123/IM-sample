@@ -5,11 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Data
 public class GetFriendShipRequestReq extends RequestBase {
 

@@ -6,11 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Repository
 public interface ImConversationSetMapper extends BaseMapper<ImConversationSetEntity> {
 

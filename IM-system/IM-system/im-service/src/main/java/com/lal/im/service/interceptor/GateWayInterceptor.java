@@ -14,11 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Component
 public class GateWayInterceptor implements HandlerInterceptor {
 

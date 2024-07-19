@@ -5,11 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Data
 public class ModifyUserInfoReq extends RequestBase {
 

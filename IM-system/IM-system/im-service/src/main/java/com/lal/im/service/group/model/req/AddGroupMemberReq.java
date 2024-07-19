@@ -7,11 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Data
 public class AddGroupMemberReq extends RequestBase {
 

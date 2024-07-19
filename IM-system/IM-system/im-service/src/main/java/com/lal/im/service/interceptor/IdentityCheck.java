@@ -20,11 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Component
 public class IdentityCheck {
 

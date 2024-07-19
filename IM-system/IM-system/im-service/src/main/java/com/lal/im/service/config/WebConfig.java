@@ -7,11 +7,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 

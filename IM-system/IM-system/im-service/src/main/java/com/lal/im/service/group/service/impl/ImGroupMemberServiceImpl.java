@@ -35,11 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Service
 @Slf4j
 public class ImGroupMemberServiceImpl implements ImGroupMemberService {

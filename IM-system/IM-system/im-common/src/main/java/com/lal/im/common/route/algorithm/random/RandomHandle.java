@@ -9,11 +9,7 @@ import com.lal.im.common.route.RouteHandle;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 public class RandomHandle implements RouteHandle {
     @Override
     public String routeServer(List<String> values, String key) {

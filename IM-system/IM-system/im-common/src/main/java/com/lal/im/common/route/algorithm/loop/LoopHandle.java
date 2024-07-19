@@ -8,11 +8,7 @@ import com.lal.im.common.route.RouteHandle;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 public class LoopHandle implements RouteHandle {
 
 

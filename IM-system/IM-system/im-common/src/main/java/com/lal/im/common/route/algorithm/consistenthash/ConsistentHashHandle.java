@@ -5,11 +5,7 @@ import com.lal.im.common.route.RouteHandle;
 
 import java.util.List;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 public class ConsistentHashHandle implements RouteHandle {
 
     //TreeMap

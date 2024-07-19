@@ -9,11 +9,7 @@ import com.lal.im.service.group.model.resp.GetRoleInGroupResp;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 public interface ImGroupMemberService {
 
     public ResponseVO importGroupMember(ImportGroupMemberReq req);

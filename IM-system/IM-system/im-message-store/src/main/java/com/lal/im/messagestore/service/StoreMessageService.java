@@ -18,11 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Service
 public class StoreMessageService {
 

@@ -22,11 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Service
 public class StroeGroupMessageReceiver {
     private static Logger logger = LoggerFactory.getLogger(StroeGroupMessageReceiver.class);

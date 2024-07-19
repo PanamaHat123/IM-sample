@@ -45,11 +45,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 @Service
 public class ImFriendShipServiceImpl implements ImFriendShipService {
 

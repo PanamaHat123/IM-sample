@@ -1,10 +1,6 @@
 package com.lal.im.common.constant;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 public class Constants {
 
     /** channel绑定的userId Key*/

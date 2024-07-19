@@ -9,11 +9,7 @@ import com.lal.im.service.friendship.model.req.*;
 
 import java.util.List;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
+
 public interface ImFriendShipService {
 
     public ResponseVO importFriendShip(ImporFriendShipReq req);
