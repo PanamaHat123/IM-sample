@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 
-@Component
+//@Component
 public class ZKit {
 
-    @Autowired
+//    @Autowired
     ZkClient zkClient;
 
 

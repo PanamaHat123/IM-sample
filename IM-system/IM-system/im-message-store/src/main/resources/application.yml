@@ -10,7 +10,7 @@ spring:
     active: '@profiles.active@'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/im-core?serverTimezone=UTC&useSSL=false&characterEncoding=UTF8
+    url: jdbc:mysql://localhost:3306/im-core?serverTimezone=UTC&useSSL=false&characterEncoding=UTF8&allowPublicKeyRetrieval=true
     username: root
     password: root
   main:

@@ -2,61 +2,41 @@
   <div class="chat-container">
 
     <div class="chat-box">
-      <div class="left-side"></div>
+      <div class="left-side">
+<!--        <ConversationList/>-->
+        <FirendList/>
+      </div>
       <div class="right-side"></div>
     </div>
     <div class="info-box">
-      <el-form ref="infoForm" :model="infoForm" label-width="80px">
-        <el-form-item label="fromId" prop="fromId">
-          <el-input v-model="infoForm.fromId" placeholder="fromId" />
-        </el-form-item>
-        <el-form-item label="appId" prop="appId">
-          <el-input v-model="infoForm.appId" placeholder="appId" />
-        </el-form-item>
-        <el-form-item label="clientType" prop="clientType">
-          <el-input v-model="infoForm.clientType" placeholder="clientType" />
-        </el-form-item>
-        <el-form-item label="imei" prop="imei">
-          <el-input v-model="infoForm.imei" placeholder="imei" />
-        </el-form-item>
-      </el-form>
+      <InfoContainer/>
     </div>
   </div>
 </template>
 
 <script>
 import {queryAllFriendShip} from "../../api/baseApi"
+import InfoContainer from "./InfoContainer.vue";
+import ConversationList from "./ConversationList.vue";
+import FirendList from "./FirendList.vue";
 export default {
   name: 'ChatPage',
+  components:{
+    InfoContainer,
+    ConversationList,
+    FirendList
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      infoForm:{
-        fromId: "app01",
-        appId:10000,
-        clientType:1,
-        imei:1
-      }
+
     }
   },
   async created() {
-    console.log(await this.getFriendList())
+
   },
   methods:{
-    async getFriendList(){
-      let data = {
-        fromId:"app01"
-      }
-      try {
-        let res = await queryAllFriendShip(10000, data)
-        if(res.code != 200){
-          throw new Error(res.msg)
-        }
-        return res.data
-      } catch (e) {
-        this.$message.error(e.msg || "get friend failed")
-      }
-    },
+
     async queryGroupList(){
 
     }

@@ -45,11 +45,11 @@ public class BeanConfig {
         return routeHandle;
     }
 
-    @Bean
-    public ZkClient buildZKClient() {
-        return new ZkClient(appConfig.getZkAddr(),
-                appConfig.getZkConnectTimeOut());
-    }
+//    @Bean
+//    public ZkClient buildZKClient() {
+//        return new ZkClient(appConfig.getZkAddr(),
+//                appConfig.getZkConnectTimeOut());
+//    }
 
     @Bean
     public EasySqlInjector easySqlInjector(){
