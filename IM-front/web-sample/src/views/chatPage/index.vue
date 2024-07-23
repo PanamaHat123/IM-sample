@@ -6,7 +6,9 @@
 <!--        <ConversationList/>-->
         <FirendList/>
       </div>
-      <div class="right-side"></div>
+      <div class="right-side">
+        <Chat/>
+      </div>
     </div>
     <div class="info-box">
       <InfoContainer/>
@@ -19,12 +21,14 @@ import {queryAllFriendShip} from "../../api/baseApi"
 import InfoContainer from "./InfoContainer.vue";
 import ConversationList from "./ConversationList.vue";
 import FirendList from "./FirendList.vue";
+import Chat from "./Chat.vue";
 export default {
   name: 'ChatPage',
   components:{
     InfoContainer,
     ConversationList,
-    FirendList
+    FirendList,
+    Chat
   },
   data () {
     return {
