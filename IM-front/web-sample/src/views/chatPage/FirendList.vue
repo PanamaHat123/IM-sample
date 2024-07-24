@@ -1,17 +1,20 @@
 <template>
   <div class="firend-container">
-    <div class="friend-item" v-for="(f,i) in firendList" :key="f.toId">
-      {{f.toId}}
+    <div class="friend-item"  v-for="(f,i) in firendList" :key="f.toId" >
+      <span @click="selectFriend(f.toId)" :class="f.toId==$store.state.conversation.toId?'current':''">
+        {{f.toId}}
+      </span>
     </div>
-    {{infoForm.imei}}
+    <div>
+      <el-button @click="init">refresh</el-button>
+    </div>
   </div>
 </template>
 
 
 <script>
-import {queryAllFriendShip} from "../../api/baseApi";
-import {mapState} from "vuex";
-
+import {mapState,mapMutations} from "vuex";
+import Pubsub from "pubsub-js"
 export default {
   props:{
 
@@ -22,19 +25,24 @@ export default {
     }
   },
   computed:{
-    ...mapState(["infoForm"])
   },
   async created() {
     console.log(this.$store)
-    this.firendList = await this.getFriendList()
+    Pubsub.subscribe("socketConnected",(name,params)=>{
+      this.init()
+    })
   },
   methods:{
+    ...mapMutations(["setConversationToId"]),
+    async init(){
+      this.firendList = await this.getFriendList()
+    },
     async getFriendList(){
       let data = {
-        fromId:"app01"
+        fromId:this.$store.state.infoForm.fromId
       }
       try {
-        let res = await queryAllFriendShip(10000, data)
+        let res = await this.$tim.getAllFriend()
         if(res.code != 200){
           throw new Error(res.msg)
         }
@@ -43,6 +51,9 @@ export default {
         this.$message.error(e.msg || "get friend failed")
       }
     },
+    selectFriend(toId){
+      this.setConversationToId(toId)
+    }
   }
 }
 </script>
@@ -61,5 +72,8 @@ export default {
   padding-left: 10px;
   cursor: pointer;
   border-bottom: 1px rebeccapurple solid;
+}
+.current{
+  color: red;
 }
 </style>

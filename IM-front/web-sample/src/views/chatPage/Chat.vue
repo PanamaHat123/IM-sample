@@ -17,12 +17,12 @@
     <div class="input">
       <el-input type="textarea" v-model="message" @keyup.enter.native="sendMsg"/>
       <el-button type="primary" @click="sendMsg">send</el-button>
-      <el-button type="primary" @click="sendBackMsg">sendBack</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import Pubsub from "pubsub-js"
 
 export default {
   data(){
@@ -64,28 +64,50 @@ export default {
     }
   },
   created() {
+    this.init()
   },
+
   methods:{
+    init(){
+      Pubsub.subscribe("P2PMessage",(name,param)=>{
+        console.log(name,param)
+        if(param.fromId==this.$store.state.conversation.toId){
+          //message to current conversation
+          let messageBodyStr = param.messageBody
+          if(messageBodyStr){
+            let messageObj = JSON.parse(messageBodyStr)
+            let message = messageObj.content
+            let record = {
+              fromId:param.fromId,
+              toId:this.$store.state.infoForm.fromId,
+              messageBody:message,
+              seq:this.seq++
+            }
+            this.records.push(record)
+          }
+        }
+      })
+      Pubsub.subscribe("GroupMessage",(name,param)=>{
+        console.log(name,param)
+      })
+    },
     sendMsg(){
       let record = {
-        fromId:"app01",
-        toId:"app02",
+        fromId:this.$store.state.infoForm.fromId,
+        toId:this.$store.state.conversation.toId,
         messageBody:this.message,
         seq:this.seq++
       }
       this.records.push(record)
-      this.message = ""
+
+      if (!this.$store.state.conversation.toId) {
+        return this.$message.error("no toId")
+      }
+      let messagePack = this.$tim.createP2PTextMessage(this.$store.state.conversation.toId,this.message );
+      this.$tim.sendP2PMessage(messagePack);
+      this.message = "";
+
     },
-    sendBackMsg(){
-      let record = {
-        fromId:"app02",
-        toId:"app01",
-        messageBody:this.message,
-        seq:this.seq++
-      }
-      this.records.push(record)
-      this.message = ""
-    }
   }
 }
 

@@ -6,12 +6,16 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import imSdk from "./common/im-sdk"
+import Pubsub from "pubsub-js"
 
 import store from './store/index';
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
-Vue.prototype.$tim = imSdk
+Vue.prototype.$tim = imSdk.im
+window.Pubsub = Pubsub
+
+console.log("$tim",imSdk)
 window.vuex = store
 /* eslint-disable no-new */
 new Vue({

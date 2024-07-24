@@ -8,8 +8,11 @@ const state = {
   infoForm:{
     fromId: "app01",
     appId:10000,
-    clientType:1,
+    clientType:1, //web
     imei:1
+  },
+  conversation:{
+    toId:""
   }
 }
 // 响应组件中的事件
@@ -20,6 +23,9 @@ const actions = {
 const mutations = {
   setInfoForm(state, infoForm){
     state.infoForm = infoForm
+  },
+  setConversationToId(state,toId){
+    state.conversation.toId = toId
   }
 }
 // 用来将state数据进行加工

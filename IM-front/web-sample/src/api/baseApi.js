@@ -10,9 +10,9 @@ export function queryAllFriendShip(appId,data){
   })
 }
 
-export function getAllFriendShip(appId,data){
+export function login(appId,data){
   return request({
-    url: '/v1/friendship/getAllFriendShip?appId='+appId,
+    url: '/v1/user/login?appId='+appId,
     method: 'post',
     data: data
   })

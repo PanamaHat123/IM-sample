@@ -21,9 +21,14 @@
 
 <script>
 import {mapState} from "vuex"
+import {login} from "../../api/baseApi";
+import Pubsub from "pubsub-js"
 export default {
   props:{
-
+    listenerMap:{
+      default:{},
+      required:true
+    }
   },
   data(){
     return {
@@ -38,8 +43,26 @@ export default {
 
   },
   methods:{
-    login(){
-      this.$message.success("login")
+    async login(){
+      let data = {
+        ...this.$store.state.infoForm,
+        userId:this.$store.state.infoForm.fromId
+      }
+      try {
+        let listeners = {};
+        for (const v in this.listenerMap) {
+          listeners[v] = this.listenerMap[v];
+        }
+        // connect to netty
+        this.$tim.init("http://127.0.0.1:8080/v1",data.appId,data.userId,"",listeners,(sdk)=>{
+          console.log('sdk connected,  callback');
+
+        })
+
+      } catch (e) {
+        this.$message.error(e.msg || "catch login failed")
+      }
+
     },
     logout(){
       this.$message.error("logout")
