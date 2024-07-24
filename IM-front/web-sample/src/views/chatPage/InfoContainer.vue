@@ -14,8 +14,8 @@
         <el-input v-model="infoForm.imei" placeholder="imei" />
       </el-form-item>
     </el-form>
-    <el-button @click="login">登录</el-button>
-    <el-button @click="logout">下线</el-button>
+    <el-button @click="login">Login</el-button>
+    <el-button @click="logout">Logout</el-button>
   </div>
 </template>
 
