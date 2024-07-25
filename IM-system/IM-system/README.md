@@ -19,9 +19,9 @@ Directory structure.
 ### third part version
 
 | appliction | version |
-|---|---|
-|nacos| 2.2.1 |
-|rabbitMQ| 3.9.11 |
-|redis|5.+|
-|||
+|------------|---------|
+| nacos      | 2.2.1   |
+| rabbitMQ   | 3.9.11  |
+| redis      | 5.+     |
+| mysql      | 8.0.37  |
 
