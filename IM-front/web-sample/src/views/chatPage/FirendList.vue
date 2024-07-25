@@ -38,9 +38,6 @@ export default {
       this.firendList = await this.getFriendList()
     },
     async getFriendList(){
-      let data = {
-        fromId:this.$store.state.infoForm.fromId
-      }
       try {
         let res = await this.$tim.getAllFriend()
         if(res.code != 200){
