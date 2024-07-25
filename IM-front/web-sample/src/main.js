@@ -7,6 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import imSdk from "./common/im-sdk"
 import Pubsub from "pubsub-js"
+import {initDB} from "./utils/webDatabase"
 
 import store from './store/index';
 
@@ -14,6 +15,12 @@ Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.$tim = imSdk.im
 window.Pubsub = Pubsub
+
+//init database
+initDB("im-store","1").then(db=>{
+  Vue.prototype.$db = db;
+  window.db = db;
+})
 
 console.log("$tim",imSdk)
 window.vuex = store
@@ -25,7 +32,3 @@ new Vue({
   components: { App },
   template: '<App/>',
 })
-// new Vue({
-//   render: h => h(App),
-//   store
-// }).$mount('#app')
