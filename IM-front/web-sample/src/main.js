@@ -14,15 +14,14 @@ import store from './store/index';
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.$tim = imSdk.im
+window.im = imSdk.im
 window.Pubsub = Pubsub
 
 //init database
-initDB("im-store","1").then(db=>{
-  Vue.prototype.$db = db;
-  window.db = db;
-})
+const db = initDB()
+Vue.prototype.$db = db;
+window.db = db;
 
-console.log("$tim",imSdk)
 window.vuex = store
 /* eslint-disable no-new */
 new Vue({
