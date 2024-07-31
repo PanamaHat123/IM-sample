@@ -1,4 +1,4 @@
-import { imClient } from "./lim/core/ImClient";
+import { imClient } from "./tim/core/ImClient";
 
 // if(typeof window !== 'undefined'){
 //     console.log("window");

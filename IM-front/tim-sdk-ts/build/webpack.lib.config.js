@@ -8,7 +8,7 @@ module.exports = {
     devtool: 'source-map',
     mode: 'production',
     entry: {
-        'lim-sdk': './src/lim.ts',
+        'tim-sdk': './src/tim.ts',
     },
     output: {
         filename: '[name].js',
