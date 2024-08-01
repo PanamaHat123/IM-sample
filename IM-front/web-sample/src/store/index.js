@@ -11,8 +11,11 @@ const state = {
     imei:1
   },
   conversation:{
-    toId:""
-  }
+    toId:"",
+    list:[],
+    records:{}
+  },
+
 }
 const actions = {
 
@@ -23,6 +26,9 @@ const mutations = {
   },
   setConversationToId(state,toId){
     state.conversation.toId = toId
+  },
+  setConversationList(state,list){
+    state.conversation.list = list
   }
 }
 const getters = {

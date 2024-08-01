@@ -3,7 +3,7 @@
 
     <div class="chat-box">
       <div class="left-side">
-<!--        <ConversationList/>-->
+        <ConversationList/>
         <FirendList/>
       </div>
       <div class="right-side">
@@ -22,6 +22,7 @@ import ConversationList from "./ConversationList.vue";
 import FirendList from "./FirendList.vue";
 import Chat from "./Chat.vue";
 import Pubsub from "pubsub-js";
+
 export default {
   name: 'ChatPage',
   components:{
@@ -70,22 +71,22 @@ export default {
     }
   },
   async created() {
-
-    // this.$tim.init("http://127.0.0.1:8000/v1",res.data.appId,res.data.userId,res.data.imUserSign,listeners,function (sdk) {
-    //   if (sdk) {
-    //     console.log('sdk 成功连接的回调, 可以使用 sdk 请求数据了.');
-    //     return uni.switchTab({
-    //       url: "/pages/tabbar/index/index"
-    //     })
-    //   }
-    // }
+    this.init();
+    this.register();
   },
   methods:{
 
     async queryGroupList(){
 
-    }
-  }
+    },
+    async init(){
+
+    },
+    register(){
+    },
+
+  },
+
 }
 </script>
 

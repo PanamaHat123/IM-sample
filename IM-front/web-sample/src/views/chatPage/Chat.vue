@@ -29,38 +29,7 @@ export default {
     return {
       message:"",
       seq:5,
-      records:[
-        // {
-        //   fromId:"app01",
-        //   toId:"app02",
-        //   messageBody:"hello",
-        //   seq:1
-        // },
-        // {
-        //   fromId:"app02",
-        //   toId:"app01",
-        //   messageBody:"hi",
-        //   seq:2
-        // },
-        // {
-        //   fromId:"app01",
-        //   toId:"app02",
-        //   messageBody:"nice to hear you",
-        //   seq:3
-        // },
-        // {
-        //   fromId:"app02",
-        //   toId:"app01",
-        //   messageBody:"me too",
-        //   seq:4
-        // },
-        // {
-        //   fromId:"app02",
-        //   toId:"app01",
-        //   messageBody:"how are you?",
-        //   seq:5
-        // },
-      ]
+      records:[]
     }
   },
   created() {
@@ -85,6 +54,8 @@ export default {
             }
             this.records.push(record)
           }
+        }else{
+
         }
       })
       Pubsub.subscribe("GroupMessage",(name,param)=>{

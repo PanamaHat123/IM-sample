@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import imSdk from "./common/im-sdk"
+import imSdk from "./common/tim-sdk"
 import Pubsub from "pubsub-js"
 import {initDB} from "./utils/webDatabase"
 

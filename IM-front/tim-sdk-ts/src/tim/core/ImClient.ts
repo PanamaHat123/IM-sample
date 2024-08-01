@@ -277,7 +277,7 @@ export class ImClient {
     public getGroup(params:any): Promise<any> {
         return new Promise((resolve, _) => {
             let api = new HttpApi(this.httpUrl);
-            let resp = api.call("/group/syncJoinedGroup", this.getRequestParams(), { operater: this.userId ,maxLimit:params.maxLimit,lastSequence:params.lastSequence})
+            let resp = api.call("/group/syncJoinedGroup", this.getRequestParams(), { operator: this.userId ,maxLimit:params.maxLimit,lastSequence:params.lastSequence})
             resolve(resp);
         })
     }
@@ -286,7 +286,7 @@ export class ImClient {
     public getConversation(params:any): Promise<any> {
         return new Promise((resolve, _) => {
             let api = new HttpApi(this.httpUrl);
-            let resp = api.call("/conversation/syncConversationList", this.getRequestParams(), { operater: this.userId ,maxLimit:params.maxLimit,lastSequence:params.lastSequence})
+            let resp = api.call("/conversation/syncConversationList", this.getRequestParams(), { operator: this.userId ,maxLimit:params.maxLimit,lastSequence:params.lastSequence})
             resolve(resp);
         })
     }
@@ -295,7 +295,7 @@ export class ImClient {
     public getOfflineMessage(params:any): Promise<any> {
         return new Promise((resolve, _) => {
             let api = new HttpApi(this.httpUrl);
-            let resp = api.call("/message/syncOfflineMessage", this.getRequestParams(), { operater: this.userId ,maxLimit:params.maxLimit,lastSequence:params.lastSequence})
+            let resp = api.call("/message/syncOfflineMessage", this.getRequestParams(), { operator: this.userId ,maxLimit:params.maxLimit,lastSequence:params.lastSequence})
             resolve(resp);
         })
     }

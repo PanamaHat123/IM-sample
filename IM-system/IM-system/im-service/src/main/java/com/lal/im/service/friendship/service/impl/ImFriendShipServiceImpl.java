@@ -485,7 +485,7 @@ public class ImFriendShipServiceImpl implements ImFriendShipService {
         SyncResp<ImFriendShipEntity> resp = new SyncResp<>();
         //seq > req.getseq limit maxLimit
         QueryWrapper<ImFriendShipEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("from_id",req.getOperater());
+        queryWrapper.eq("from_id",req.getOperator());
         queryWrapper.gt("friend_sequence",req.getLastSequence());
         queryWrapper.eq("app_id",req.getAppId());
         queryWrapper.last(" limit " + req.getMaxLimit());
@@ -496,7 +496,7 @@ public class ImFriendShipServiceImpl implements ImFriendShipService {
             ImFriendShipEntity maxSeqEntity = list.get(list.size() - 1);
             resp.setDataList(list);
             //设置最大seq
-            Long friendShipMaxSeq = imFriendShipMapper.getFriendShipMaxSeq(req.getAppId(), req.getOperater());
+            Long friendShipMaxSeq = imFriendShipMapper.getFriendShipMaxSeq(req.getAppId(), req.getOperator());
             resp.setMaxSequence(friendShipMaxSeq);
             //设置是否拉取完毕
             resp.setCompleted(maxSeqEntity.getFriendSequence() >= friendShipMaxSeq);

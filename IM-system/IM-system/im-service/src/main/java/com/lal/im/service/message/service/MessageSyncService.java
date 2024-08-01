@@ -121,7 +121,7 @@ public class MessageSyncService {
     public ResponseVO syncOfflineMessage(SyncReq req) {
 
         SyncResp<OfflineMessageContent> resp = new SyncResp<>();
-        String key = req.getAppId() + ":" + Constants.RedisConstants.OfflineMessage + ":" + req.getOperater();
+        String key = req.getAppId() + ":" + Constants.RedisConstants.OfflineMessage + ":" + req.getOperator();
         //获取最大的seq
         Long maxSeq = 0L;
         ZSetOperations zSetOperations = redisTemplate.opsForZSet();

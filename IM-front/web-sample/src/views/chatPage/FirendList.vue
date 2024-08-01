@@ -1,12 +1,12 @@
 <template>
   <div class="firend-container">
     <div class="friend-item"  v-for="(f,i) in firendList" :key="f.toId" >
-      <span @click="selectFriend(f.toId)" :class="f.toId==$store.state.conversation.toId?'current':''">
+      <span @click="selectFriend(f.toId)" >
         {{f.toId}}
       </span>
     </div>
     <div>
-      <el-button @click="init">refresh</el-button>
+      <el-button size="mini" @click="init">refresh friend</el-button>
     </div>
   </div>
 </template>
@@ -49,17 +49,17 @@ export default {
       }
     },
     selectFriend(toId){
-      this.setConversationToId(toId)
+      // this.setConversationToId(toId)
     }
   }
 }
 </script>
 
 
-<style>
+<style scoped>
 .firend-container{
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
 }
 .friend-item{
   width: 100%;

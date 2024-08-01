@@ -92,7 +92,7 @@ public class ImUserController {
     public ResponseVO subscribeUserOnlineStatus(@RequestBody @Validated
                                                 SubscribeUserOnlineStatusReq req, Integer appId, String identifier) {
         req.setAppId(appId);
-        req.setOperater(identifier);
+        req.setOperator(identifier);
         imUserStatusService.subscribeUserOnlineStatus(req);
         return ResponseVO.successResponse();
     }
@@ -101,7 +101,7 @@ public class ImUserController {
     public ResponseVO setUserCustomerStatus(@RequestBody @Validated
                                             SetUserCustomerStatusReq req, Integer appId,String identifier) {
         req.setAppId(appId);
-        req.setOperater(identifier);
+        req.setOperator(identifier);
         imUserStatusService.setUserCustomerStatus(req);
         return ResponseVO.successResponse();
     }
@@ -110,7 +110,7 @@ public class ImUserController {
     public ResponseVO queryFriendOnlineStatus(@RequestBody @Validated
                                               PullFriendOnlineStatusReq req, Integer appId,String identifier) {
         req.setAppId(appId);
-        req.setOperater(identifier);
+        req.setOperator(identifier);
         return ResponseVO.successResponse(imUserStatusService.queryFriendOnlineStatus(req));
     }
 
@@ -118,7 +118,7 @@ public class ImUserController {
     public ResponseVO queryUserOnlineStatus(@RequestBody @Validated
                                             PullUserOnlineStatusReq req, Integer appId,String identifier) {
         req.setAppId(appId);
-        req.setOperater(identifier);
+        req.setOperator(identifier);
         return ResponseVO.successResponse(imUserStatusService.queryUserOnlineStatus(req));
     }
 

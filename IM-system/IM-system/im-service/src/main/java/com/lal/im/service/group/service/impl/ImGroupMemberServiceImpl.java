@@ -314,7 +314,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
 //        AddGroupMemberPack addGroupMemberPack = new AddGroupMemberPack();
 //        addGroupMemberPack.setGroupId(req.getGroupId());
 //        addGroupMemberPack.setMembers(successId);
-//        groupMessageProducer.producer(req.getOperater(), GroupEventCommand.ADDED_MEMBER, addGroupMemberPack
+//        groupMessageProducer.producer(req.getOperator(), GroupEventCommand.ADDED_MEMBER, addGroupMemberPack
 //                , new ClientInfo(req.getAppId(), req.getClientType(), req.getImei()));
 //
 
@@ -324,7 +324,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
             dto.setGroupId(req.getGroupId());
             dto.setGroupType(group.getGroupType());
             dto.setMemberId(resp);
-            dto.setOperater(req.getOperater());
+            dto.setOperator(req.getOperator());
             callbackService.callback(req.getAppId()
                     ,Constants.CallbackCommand.GroupMemberAddAfter,
                     JSONObject.toJSONString(dto));
@@ -349,7 +349,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
             if (GroupTypeEnum.PUBLIC.getCode() == group.getGroupType()) {
 
                 //获取操作人的权限 是管理员or群主or群成员
-                ResponseVO<GetRoleInGroupResp> role = getRoleInGroupOne(req.getGroupId(), req.getOperater(), req.getAppId());
+                ResponseVO<GetRoleInGroupResp> role = getRoleInGroupOne(req.getGroupId(), req.getOperator(), req.getAppId());
                 if (!role.isOk()) {
                     return role;
                 }
@@ -438,7 +438,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
         }
 
         //是否是自己修改自己的资料
-        boolean isMeOperate = req.getOperater().equals(req.getMemberId());
+        boolean isMeOperate = req.getOperator().equals(req.getMemberId());
 
         if (!isadmin) {
             //昵称只能自己修改 权限只能群主或管理员修改
@@ -461,7 +461,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
                 }
 
                 //获取操作人权限
-                ResponseVO<GetRoleInGroupResp> operateRoleInGroupOne = this.getRoleInGroupOne(req.getGroupId(), req.getOperater(), req.getAppId());
+                ResponseVO<GetRoleInGroupResp> operateRoleInGroupOne = this.getRoleInGroupOne(req.getGroupId(), req.getOperator(), req.getAppId());
                 if(!operateRoleInGroupOne.isOk()){
                     return operateRoleInGroupOne;
                 }
@@ -503,7 +503,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
 
 //        UpdateGroupMemberPack pack = new UpdateGroupMemberPack();
 //        BeanUtils.copyProperties(req, pack);
-//        groupMessageProducer.producer(req.getOperater(), GroupEventCommand.UPDATED_MEMBER, pack, new ClientInfo(req.getAppId(), req.getClientType(), req.getImei()));
+//        groupMessageProducer.producer(req.getOperator(), GroupEventCommand.UPDATED_MEMBER, pack, new ClientInfo(req.getAppId(), req.getClientType(), req.getImei()));
 //
 
         return ResponseVO.successResponse();
@@ -550,7 +550,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
         if (!isadmin) {
 
             //获取操作人的权限 是管理员or群主or群成员
-            ResponseVO<GetRoleInGroupResp> role = getRoleInGroupOne(req.getGroupId(), req.getOperater(), req.getAppId());
+            ResponseVO<GetRoleInGroupResp> role = getRoleInGroupOne(req.getGroupId(), req.getOperator(), req.getAppId());
             if (!role.isOk()) {
                 return role;
             }
@@ -603,15 +603,15 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
         if(i == 1){
 //            GroupMemberSpeakPack pack = new GroupMemberSpeakPack();
 //            BeanUtils.copyProperties(req,pack);
-//            groupMessageProducer.producer(req.getOperater(),GroupEventCommand.SPEAK_GOUP_MEMBER,pack,
+//            groupMessageProducer.producer(req.getOperator(),GroupEventCommand.SPEAK_GOUP_MEMBER,pack,
 //                    new ClientInfo(req.getAppId(),req.getClientType(),req.getImei()));
         }
         return ResponseVO.successResponse();
     }
 
     @Override
-    public ResponseVO<Collection<String>> syncMemberJoinedGroup(String operater, Integer appId) {
-        return ResponseVO.successResponse(imGroupMemberMapper.syncJoinedGroupId(appId,operater,GroupMemberRoleEnum.LEAVE.getCode()));
+    public ResponseVO<Collection<String>> syncMemberJoinedGroup(String operator, Integer appId) {
+        return ResponseVO.successResponse(imGroupMemberMapper.syncJoinedGroupId(appId,operator,GroupMemberRoleEnum.LEAVE.getCode()));
     }
 
 

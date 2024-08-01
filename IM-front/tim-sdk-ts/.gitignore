@@ -1,5 +1,5 @@
 node_modules
-/dist
+
 *.iml
 .idea
 tim-sdk.js

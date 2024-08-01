@@ -112,7 +112,7 @@ public class ImUserStatusServiceImpl implements ImUserStatusService {
 
         for (String beSubUserId : req.getSubUserId()) {
             String userKey = req.getAppId() + ":" + Constants.RedisConstants.subscribe + ":" + beSubUserId;
-            stringRedisTemplate.opsForHash().put(userKey, req.getOperater(), subExpireTime.toString());
+            stringRedisTemplate.opsForHash().put(userKey, req.getOperator(), subExpireTime.toString());
         }
     }
 
@@ -141,7 +141,7 @@ public class ImUserStatusServiceImpl implements ImUserStatusService {
     @Override
     public Map<String, UserOnlineStatusResp> queryFriendOnlineStatus(PullFriendOnlineStatusReq req) {
 
-        List<String> allFriendId = imFriendService.getAllFriendId(req.getOperater(), req.getAppId());
+        List<String> allFriendId = imFriendService.getAllFriendId(req.getOperator(), req.getAppId());
         return getUserOnlineStatus(allFriendId,req.getAppId());
     }
 
