@@ -96,12 +96,12 @@ export default {
 .records{
   height: 80%;
   width: 100%;
-  background: yellow;
+  background: azure;
 }
 .input{
   width: 100%;
   height: 20%;
-  background: #42b983;
+  background: #ffffff;
 }
 .record{
   width: 100%;

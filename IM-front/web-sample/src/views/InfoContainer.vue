@@ -21,8 +21,6 @@
 
 <script>
 import {mapState} from "vuex"
-import {login} from "../../api/baseApi";
-import Pubsub from "pubsub-js"
 export default {
   props:{
     listenerMap:{
@@ -53,6 +51,7 @@ export default {
         for (const v in this.listenerMap) {
           listeners[v] = this.listenerMap[v];
         }
+        // from "http://127.0.0.1:8080/v1"  get a tcp node address
         // connect to netty
         this.$tim.init("http://127.0.0.1:8080/v1",data.appId,data.userId,"",listeners,(sdk)=>{
           console.log('sdk connected,  callback');

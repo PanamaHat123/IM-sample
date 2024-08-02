@@ -15,6 +15,9 @@ const state = {
     list:[],
     records:{}
   },
+  friend:{
+    friendList:[]
+  }
 
 }
 const actions = {
@@ -29,6 +32,9 @@ const mutations = {
   },
   setConversationList(state,list){
     state.conversation.list = list
+  },
+  setFriendList(state,list){
+    state.friend.friendList = list
   }
 }
 const getters = {
