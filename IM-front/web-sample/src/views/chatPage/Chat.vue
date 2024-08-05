@@ -1,16 +1,16 @@
 
 <template>
   <div class="chat-view">
-    <div class="records">
+    <div class="records" id="scroll-container">
       <div class="record"
-           v-for="(record,index) in records" :key="index">
-        <div class="record-right" v-if="record.fromId === $store.state.infoForm.fromId">
-          <span>{{record.messageBody}}</span>
-          <span> &nbsp;&nbsp;:&nbsp;{{record.fromId}}</span>
+           v-for="(msg,index) in $store.state.conversation.records[current.conversationId]" :key="index">
+        <div class="record-right" v-if="msg.fromId === $store.state.infoForm.fromId">
+          <span>{{msg.messageObj?msg.messageObj.content:msg.messageBody}}</span>
+          <span> &nbsp;&nbsp;:&nbsp;{{msg.fromId}}</span>
         </div>
         <div v-else class="record-left">
-          <span>{{record.fromId}}&nbsp;:&nbsp;&nbsp;</span>
-          <span>{{record.messageBody}}</span>
+          <span>{{msg.fromId}}&nbsp;:&nbsp;&nbsp;</span>
+          <span>{{msg.messageObj?msg.messageObj.content:msg.messageBody}}</span>
         </div>
       </div>
     </div>
@@ -23,62 +23,81 @@
 
 <script>
 import Pubsub from "pubsub-js"
+import {mapMutations,mapState} from "vuex";
 
 export default {
   data(){
     return {
       message:"",
       seq:5,
-      records:[]
     }
+  },
+  computed:{
+    ...mapState("conversation",["current","records"])
   },
   created() {
     this.init()
+    console.log("chat create")
+
   },
 
   methods:{
+    ...mapMutations("conversation",["addRecord"]),
     init(){
+      if (Pubsub.getSubscriptions("P2PMessage").length > 0) {
+        return
+      }
+
       Pubsub.subscribe("P2PMessage",(name,param)=>{
         console.log(name,param)
-        if(param.fromId==this.$store.state.conversation.toId){
+        console.log("current conversation",this.current)
+        if(param.fromId === this.current.toId){
           //message to current conversation
           let messageBodyStr = param.messageBody
           if(messageBodyStr){
             let messageObj = JSON.parse(messageBodyStr)
-            let message = messageObj.content
-            let record = {
-              fromId:param.fromId,
-              toId:this.$store.state.infoForm.fromId,
-              messageBody:message,
-              seq:this.seq++
-            }
-            this.records.push(record)
+            param.messageObj = messageObj
           }
+          this.addRecord({conversationId:this.current.conversationId,message:param})
+          this.$forceUpdate()
         }else{
 
         }
+        param.conversationId = this.current.conversationId
+        this.$db.records.add(param)
+        this.$nextTick(()=>{
+          this.scroll()
+        })
+
       })
       Pubsub.subscribe("GroupMessage",(name,param)=>{
         console.log(name,param)
       })
     },
     sendMsg(){
-      let record = {
-        fromId:this.$store.state.infoForm.fromId,
-        toId:this.$store.state.conversation.toId,
-        messageBody:this.message,
-        seq:this.seq++
-      }
-      this.records.push(record)
 
-      if (!this.$store.state.conversation.toId) {
+      if(!this.message)return
+
+      if (!this.current.toId) {
         return this.$message.error("no toId")
       }
-      let messagePack = this.$tim.createP2PTextMessage(this.$store.state.conversation.toId,this.message );
+      let messagePack = this.$tim.createP2PTextMessage(this.current.toId,this.message );
       this.$tim.sendP2PMessage(messagePack);
-      this.message = "";
 
+      console.log("send messagePack",messagePack)
+      messagePack.messageObj = JSON.parse(messagePack.messageBody)
+      this.addRecord({conversationId:this.current.conversationId,message:messagePack})
+      messagePack.conversationId = this.current.conversationId
+      this.$db.records.add(messagePack)
+      this.message = "";
+      this.$nextTick(()=>{
+        this.scroll()
+      })
     },
+    scroll(){
+      const container = document.getElementById('scroll-container');
+      container.scrollTop = container.scrollHeight;
+    }
   }
 }
 
@@ -97,7 +116,9 @@ export default {
   height: 80%;
   width: 100%;
   background: azure;
+  overflow-y: auto;
 }
+
 .input{
   width: 100%;
   height: 20%;

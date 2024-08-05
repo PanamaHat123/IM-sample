@@ -5,7 +5,7 @@ export const initDB = ()=>{
   db.version(1).stores({
     conversationList: '++conversationId, conversationType, fromId,toId,isMute,isTop,sequence,readedSequence,appId',
     userInfo:"appId,userId,clientType,imei",
-    messageRecord:"++"
+    records:"++messageKey,messageBody,appId,fromId,toId,imei,clientType,extra,delFlag,messageSequence,messageId,conversationType,conversationId"
   });
   return db
 }

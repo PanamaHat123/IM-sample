@@ -1,7 +1,7 @@
 <template>
   <div class="conversation-container">
     <div class="friend-item"  v-for="(f,i) in conversation.list" :key="f.toId" >
-      <span @click="selectConversation(f)" :class="f.toId==$store.state.conversation.toId?'current':''">
+      <span @click="selectConversation(f)" :class="f.toId===conversation.current.toId?'current':''">
         {{f.toId}}
       </span>
     </div>
@@ -28,10 +28,17 @@ export default {
   created() {
   },
   methods:{
-    ...mapMutations(["setConversationToId"]),
+    ...mapMutations("conversation",["setConversation"]),
     selectConversation(row){
       console.log("conversation",row)
-      this.setConversationToId(row.toId)
+      this.setConversation(row)
+      this.$nextTick(()=>{
+        this.scroll()
+      })
+    },
+    scroll(){
+      const container = document.getElementById('scroll-container');
+      container.scrollTop = container.scrollHeight;
     }
   }
 }

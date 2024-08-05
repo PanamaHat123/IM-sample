@@ -30,6 +30,7 @@ import InfoContainer from "./views/InfoContainer.vue";
 import Pubsub from "pubsub-js";
 import {mapMutations} from "vuex";
 import {appCreatedInit} from "./appInit"
+import friend from "./store/modules/friend";
 export default {
   name: 'App',
   components:{
@@ -80,11 +81,13 @@ export default {
     })
   },
   methods:{
-    ...mapMutations(["setFriendList","setConversationList","setConversationToId"]),
+    ...mapMutations("friend",["setFriendList"]),
+    ...mapMutations("conversation",["setConversationList","addRecord"]),
     async init(){
       await this.initLocalConversation()
       let friendList = await this.getFriendList()
       this.setFriendList(friendList)
+      await  this.getRecords()
     },
 
     async getFriendList(){
@@ -129,6 +132,18 @@ export default {
       console.log("getConversation==>",res)
       return res.data.dataList
     },
+    async getRecords(){
+      for (const item of this.$store.state.conversation.list) {
+        let records =await this.$db.records.where("conversationId").equals(item.conversationId).limit(40).toArray();
+        for (const msg of records) {
+          this.addRecord({
+            conversationId:msg.conversationId,
+            message:msg,
+          })
+        }
+      }
+
+    }
   }
 }
 </script>
