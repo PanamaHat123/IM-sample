@@ -1,0 +1,58 @@
+
+.conversation-container{
+
+    width: 250px;
+    height: 100%;
+    background-color: #039890;
+    
+    .conv-list{
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        
+        .active{
+            background-color: #55a093 !important;
+        }
+
+        .conv-item{
+            width: 100%;
+            height: 90px;
+            // background-color: #6ca394;
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            &:hover{
+                background-color:  #6ca394;
+            }
+            .head{
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background-color: bisque;
+                margin-left: 10px;
+                margin-right: 20px;
+            }
+            .conv-info{
+                color: #fefffe;
+                .name{
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+                .recent{
+                    font-size: 10px;
+                    margin-top: 8px;
+                }
+            }
+            .time{
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                font-size: 10px;
+                color: #fefffe;
+            }
+        }
+    
+    }
+
+}

@@ -10,7 +10,6 @@ function Home(){
     const count = useSelector((state: RootState )=>state.home.count);
     return(
         <div className="home">
-
             <Button onClick={()=>dispatch(addCount(11))}>add</Button>
             <div className="test">
                 <span>home</span>

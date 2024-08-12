@@ -9,8 +9,9 @@ export const queryFriend = async (data:object) =>{
         appId:10000,
         fromId:"app01"
     }
+
     try {
-        let res = await request.post<Friend[]>("/v1/friendship/getAllFriendShip?appId=10000",{})
+        const res = await request.post<Friend[]>("/v1/friendship/getAllFriendShip?appId=10000",data)
         console.log(res);
     } catch (error) {
         console.log("err",error);

@@ -2,8 +2,8 @@ import './App.less'
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 
 import {UsergroupDeleteOutlined, WechatOutlined } from '@ant-design/icons';
-import Chat from './view/chat/Chat';
-import Friend from './view/friend/Friend';
+import Chat from './view/chat';
+import Friend from './view/friend';
 
 import { queryFriend } from "./api/app";
 import { useEffect } from 'react';
@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 function App() {
 
     useEffect(()=>{
-        queryFriend({})
+        // queryFriend({})
     },[])
 
     return (
