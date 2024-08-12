@@ -1,40 +1,38 @@
-import {useEffect, useLayoutEffect, useState} from 'react'
-import './App.css'
+import './App.less'
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
-import Home from "./view/Home";
-import Mine from "./view/Mine";
+
+import {UsergroupDeleteOutlined, WechatOutlined } from '@ant-design/icons';
+import Chat from './view/chat/Chat';
+import Friend from './view/friend/Friend';
+
+import { queryFriend } from "./api/app";
+import { useEffect } from 'react';
 
 function App() {
-    const [count, setCount] = useState(0)
 
     useEffect(()=>{
-        console.log("useEffect",count)
+        queryFriend({})
     },[])
-    useLayoutEffect(()=>{
-        console.log("useLayoutEffect")
-    })
 
-    const click = ()=>{
-        setCount(count+1)
-    }
     return (
         <>
             <BrowserRouter>
-                <div>
-                    <div>
-                        <Link to="/">home</Link>
-                    </div>
-                    <div onClick={click}>
-                        <Link to="/mine">mine</Link>
-                    </div>
+            <div className='App'>
+                <div className='left-side'>
+                    <Link to="/">
+                        <WechatOutlined style={{fontSize:"30px",marginTop:"10px"}}/>
+                    </Link>
+                    <Link to="/friend">
+                        <UsergroupDeleteOutlined style={{fontSize:"30px",marginTop:"10px"}}/>
+                    </Link>
                 </div>
-                <div>{count}</div>
-                <div>
+                <div className='right-side'>
                     <Routes>
-                        <Route path="/" element={<Home count={count}/>}/>
-                        <Route path="/mine" element={<Mine/>}/>
+                        <Route path="/" element={<Chat />}/>
+                        <Route path="/friend" element={<Friend/>}/>
                     </Routes>
                 </div>
+            </div>
             </BrowserRouter>
         </>
     )

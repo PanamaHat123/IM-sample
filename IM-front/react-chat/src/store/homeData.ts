@@ -1,15 +1,23 @@
 
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+
+
+interface InitialState{
+    count:number;
+    title:string;
+}
+const initialState :InitialState = {
+    count:2,
+    title:"test"
+}
 
 const homeSlice = createSlice({
     name:"home",
-    initialState:{
-        count:2
-    },
+    initialState,
     reducers:{
-        addCount: state=>{
-            console.log("param",param)
-            state.count += param.payload
+        addCount: (state:InitialState,actions:PayloadAction<number>)=>{
+            console.log("param")
+            state.count += actions.payload
         }
     }
 })

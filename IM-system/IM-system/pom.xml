@@ -276,8 +276,8 @@
                 <spring.profiles.active>dev</spring.profiles.active>
                 <logging.level>debug</logging.level>
                 <endpoints.include>health, info, logfile, heapdump, metrics</endpoints.include>
-<!--                <nacos.server>10.209.248.224:8848</nacos.server>-->
-                <nacos.server>localhost:8848</nacos.server>
+                <nacos.server>10.209.248.224:8848</nacos.server>
+<!--                <nacos.server>localhost:8848</nacos.server>-->
                 <nacos.discovery.group>DEFAULT_GROUP</nacos.discovery.group>
                 <nacos.config.group>DEFAULT_GROUP</nacos.config.group>
             </properties>
