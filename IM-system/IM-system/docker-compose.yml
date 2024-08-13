@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+
+  im-test:
+    image: "imtest:1.0.8"
+    container_name: imTest
+    environment:
+      # shanghai
+      TZ: Asia/Shanghai
+#    volumes:
+#      - /docker/imTest/logs/:/imTest/server
+    privileged: true
+    restart: always
+    network_mode: "host"
+
+
+#  redis:
+#    image: redis:6.0.8
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - /app/volumes/redis/redis.conf:/etc/redis/redis.conf
+#      - /app/volumes/redis/data:/data
+#    networks:
+#      -  work_net
+#    command: redis-server /etc/redis/redis.conf
+
+
+networks:
+  work_net:
+    driver: bridge

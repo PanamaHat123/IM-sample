@@ -1,7 +1,6 @@
 package com.lal.im.tcp.utils;
 
 
-import com.lal.im.common.codec.config.BootstrapConfig;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.rabbit.connection.Connection;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

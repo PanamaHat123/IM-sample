@@ -10,6 +10,7 @@
 
     <packaging>pom</packaging>
     <name>IM-system</name>
+
     
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -39,7 +40,7 @@
         <rabbit.client.version>5.19.0</rabbit.client.version>
         <apache.commons.version>3.12.0</apache.commons.version>
         <fastjson.version>1.2.51</fastjson.version>
-<!--        <springboot.version>2.3.2.RELEASE</springboot.version>-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <netty.version>4.1.81.Final</netty.version>
         <feign.version>8.18.0</feign.version>
         <snakeyaml.version>1.33</snakeyaml.version>
@@ -230,29 +231,39 @@
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${springboot.version}</version>
-                <configuration>
-                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.0</version>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <warName>${project.artifactId}</warName>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <version>${springboot.version}</version>-->
+<!--                <configuration>-->
+<!--                    <fork>true</fork> &lt;!&ndash; 如果没有该配置，devtools不会生效 &ndash;&gt;-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-war-plugin</artifactId>-->
+<!--                <version>3.2.0</version>-->
+<!--                <configuration>-->
+<!--                    <failOnMissingWebXml>false</failOnMissingWebXml>-->
+<!--                    <warName>${project.artifactId}</warName>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -276,8 +287,19 @@
                 <spring.profiles.active>dev</spring.profiles.active>
                 <logging.level>debug</logging.level>
                 <endpoints.include>health, info, logfile, heapdump, metrics</endpoints.include>
-<!--                <nacos.server>10.209.248.224:8848</nacos.server>-->
-                <nacos.server>localhost:8848</nacos.server>
+                <nacos.server>10.209.248.224:8848</nacos.server>
+<!--                <nacos.server>localhost:8848</nacos.server>-->
+                <nacos.discovery.group>DEFAULT_GROUP</nacos.discovery.group>
+                <nacos.config.group>DEFAULT_GROUP</nacos.config.group>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+                <logging.level>info</logging.level>
+                <endpoints.include>health, info, logfile, heapdump, metrics</endpoints.include>
+                <nacos.server>10.209.248.224:8848</nacos.server>
                 <nacos.discovery.group>DEFAULT_GROUP</nacos.discovery.group>
                 <nacos.config.group>DEFAULT_GROUP</nacos.config.group>
             </properties>

@@ -1,0 +1,13 @@
+
+server:
+  port: 8001
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    addresses: localhost
+    username: root
+    password: root
+    virtual-host: my_vhost
+

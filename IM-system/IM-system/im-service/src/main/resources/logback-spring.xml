@@ -45,7 +45,6 @@
 
 
     <springProfile name="test,dev">
-        <!--文件-->
         <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <Prudent>true</Prudent>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -65,7 +64,6 @@
         </root>
     </springProfile>
     <springProfile name="prod">
-        <!--文件-->
         <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <Prudent>true</Prudent>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

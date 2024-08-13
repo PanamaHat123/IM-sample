@@ -8,7 +8,6 @@ import com.lal.im.common.codec.proto.MessageHeader;
 import com.lal.im.common.codec.proto.MessagePack;
 import com.lal.im.common.enums.command.Command;
 import com.lal.im.common.enums.command.GroupEventCommand;
-import com.lal.im.common.enums.command.MessageCommand;
 import com.lal.im.common.model.ResponseVO;
 import com.lal.im.common.model.message.CheckSendMessageReq;
 import com.lal.im.tcp.feign.FeignMessageService;

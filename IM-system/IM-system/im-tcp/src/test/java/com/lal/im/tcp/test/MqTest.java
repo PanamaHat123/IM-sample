@@ -1,7 +1,6 @@
 package com.lal.im.tcp.test;
 
 
-import com.lal.im.common.codec.config.BootstrapConfig;
 import com.lal.im.tcp.TcpApplication;
 import com.lal.im.tcp.test.mq.MessageReciver;
 import com.lal.im.tcp.test.mq.MqFactory;

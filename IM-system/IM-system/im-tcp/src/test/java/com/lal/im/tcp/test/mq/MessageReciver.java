@@ -1,17 +1,10 @@
 package com.lal.im.tcp.test.mq;
 
-import com.alibaba.fastjson.JSONObject;
-import com.lal.im.common.codec.proto.MessagePack;
-import com.lal.im.common.constant.Constants;
-import com.lal.im.tcp.reciver.process.BaseProcess;
-import com.lal.im.tcp.reciver.process.ProcessFactory;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.IOException;
 
 @Slf4j
