@@ -4,16 +4,13 @@ import request from '../utils/request'
 
 
 
-export const queryFriend = async (data:object) =>{
-    data = {
-        appId:10000,
-        fromId:"app01"
-    }
+export const queryFriend = async (data:object) :Promise<Friend[]> =>{
 
-    try {
-        const res = await request.post<Friend[]>("/v1/friendship/getAllFriendShip?appId=10000",data)
-        console.log(res);
-    } catch (error) {
-        console.log("err",error);
-    }
+        try {
+            const res = await request.post<Friend[]>("/v1/friendship/getAllFriendShip?appId=10000",data)
+            return res.data
+        } catch (error) {
+            console.log("err",error);
+            return []
+        }
 }

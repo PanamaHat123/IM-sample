@@ -1,0 +1,61 @@
+
+.friendContainer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  .friendList{
+    width: 250px;
+    height: 100%;
+    background-color: #039890;
+
+    .friendItem{
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      background-color: #66a99e;
+      cursor: pointer;
+      margin-bottom: 3px;
+      &:hover{
+        background-color: #55a093 !important;
+      }
+      .head{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #ffe7ca;
+        margin: 0 20px;
+      }
+      .name{
+        font-size: 14px;
+        font-weight: 600;
+        color: #fcfdfc;
+      }
+    }
+  }
+
+  .friendInfo{
+    flex: 1;
+    height: 100%;
+    background-color: #b6dbd4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    color: #fcfdfc;
+    font-weight: 600;
+    .head{
+      width: 200px;
+      height: 200px;
+      background: #ffe7ca;
+      border-radius: 50%;
+      margin-top: 50px;
+    }
+    .name{
+      margin: 10px 0;
+    }
+    .introduce{
+      margin: 10px 0;
+    }
+  }
+}

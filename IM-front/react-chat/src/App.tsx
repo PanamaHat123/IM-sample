@@ -1,38 +1,50 @@
 import './App.less'
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 
-import {UsergroupDeleteOutlined, WechatOutlined } from '@ant-design/icons';
+import {UsergroupDeleteOutlined, WechatOutlined} from '@ant-design/icons';
 import Chat from './view/chat';
 import Friend from './view/friend';
 
-import { queryFriend } from "./api/app";
-import { useEffect } from 'react';
+
+import {useEffect} from 'react';
+import {queryFriend} from "./api/app.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "./store/store.ts";
+import {initFriendList} from "./store/Friend.ts";
 
 function App() {
-
-    useEffect(()=>{
-        // queryFriend({})
-    },[])
+    const friendSate = useSelector((state: RootState )=>state.friend);
+    const dispatch = useDispatch<AppDispatch>();
+    useEffect( () => {
+         (async ()=>{
+            const friends =  await queryFriend({
+                appId: 10000,
+                fromId: "app01"
+            })
+             dispatch(initFriendList(friends))
+        })()
+    }, [])
 
     return (
         <>
             <BrowserRouter>
-            <div className='App'>
-                <div className='left-side'>
-                    <Link to="/">
-                        <WechatOutlined style={{fontSize:"30px",marginTop:"10px"}}/>
-                    </Link>
-                    <Link to="/friend">
-                        <UsergroupDeleteOutlined style={{fontSize:"30px",marginTop:"10px"}}/>
-                    </Link>
+                <div>{friendSate.friendList.map(item=>item.toId).reduce((p,n)=>p+n)}</div>
+                <div className='App'>
+                    <div className='left-side'>
+                        <Link to="/">
+                            <WechatOutlined className="route-icon"/>
+                        </Link>
+                        <Link to="/friend">
+                            <UsergroupDeleteOutlined className="route-icon"/>
+                        </Link>
+                    </div>
+                    <div className='right-side'>
+                        <Routes>
+                            <Route path="/" element={<Chat/>}/>
+                            <Route path="/friend" element={<Friend/>}/>
+                        </Routes>
+                    </div>
                 </div>
-                <div className='right-side'>
-                    <Routes>
-                        <Route path="/" element={<Chat />}/>
-                        <Route path="/friend" element={<Friend/>}/>
-                    </Routes>
-                </div>
-            </div>
             </BrowserRouter>
         </>
     )

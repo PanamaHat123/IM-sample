@@ -4,11 +4,29 @@ const MessageBox = () =>{
         <div className="message-box">
            <div className="message-item">
                 <div className="head"></div>
-                <div className="message-info">
+                <div className="message-info flex-start">
                     <div className="message-title">
                         <span>13:22</span>
                     </div>
                     <div className="message-content">
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
+                        这是一条消息这是一条消息这是一条消息
                         这是一条消息这是一条消息这是一条消息
                     </div>
                 </div>
