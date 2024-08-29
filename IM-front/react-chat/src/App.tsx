@@ -28,7 +28,7 @@ function App() {
     return (
         <>
             <BrowserRouter>
-                <div>{friendSate.friendList.map(item=>item.toId).reduce((p,n)=>p+n)}</div>
+                {/* <div>{friendSate.friendList.map(item=>item.toId)}</div> */}
                 <div className='App'>
                     <div className='left-side'>
                         <Link to="/">
